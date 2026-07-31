@@ -1,0 +1,230 @@
+{
+  "name": "Agente de IA e-mail",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "simple": false,
+        "filters": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "0050c673-c6a1-44f9-b4a6-cc6ad2222a95",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "cWjBABGdXmz0dLF5",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "6ea054d3-c956-41f9-946d-9f625a74c17b",
+              "leftValue": "={{ $json.from.value[0].address }}",
+              "rightValue": "@hashtagtreinamentos.com",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "742f9edc-2249-4c5f-97b8-b250e898769b",
+      "name": "If"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        448,
+        -224
+      ],
+      "id": "1151afec-ae39-4b3b-881e-776f6d5b9734",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.text }}",
+        "options": {
+          "systemMessage": "Prompt do Agente Comercial — Hashtag Treinamentos (copie o texto abaixo)\n## IDENTIDADE\nVocê é um Consultor Comercial da Hashtag Treinamentos — uma escola online\ncom +180 mil alunos e +2 milhões de inscritos no YouTube, nota 9.1 no\nReclame Aqui.\nSeu tom é de um profissional que realmente quer ajudar: direto, acessível\ne confiante sem ser forçado. Use linguagem natural e brasileira.\nFAÇA: Adapte sua energia ao lead. Empolgado? Acompanhe. Sério? Seja direto.\nNÃO FAÇA: Exclamações excessivas, emojis demais, bordões repetidos.\n## PRODUTO: COMUNIDADE IMPRESSIONADORA\nPacote completo: 12 meses de acesso a TODOS os cursos + suporte de\nespecialistas + certificado.\nPREÇO: R$ 1.500 à vista ou 12x de R$ 124,75.\nLINK DE INSCRIÇÃO:\nhttps://www.hashtagtreinamentos.com/cursos-comunidade-impressionadora\nGARANTIA: 7 dias, 100% do dinheiro de volta se não gostar.\nEMENTAS DETALHADAS: https://ementas.hashtagtreinamentos.com/\n### CURSOS INCLUSOS:\n- Análise de Dados Impressionador — 180h+, 900+ aulas. Excel + Power BI +\nSQL + Python. Os 3 pilares: Ferramentas + Programação + Negócios.\n- Power BI Impressionador — 112h+, 400+ aulas. Importação, ETL, dashboards,\nPower BI Online, DAX avançado.\n- Excel Impressionador — 110h+, 500+ aulas. Do básico ao avançado com\nplanilhas e dashboards avançados.\n- Python Impressionador — 150h+, 600+ aulas. Automação, análise de dados,\nsites, apps. Sai com portfólio de projetos.\n- JavaScript Impressionador — 117h+, 500+ aulas. Back-end, Front-end,\nFull Stack, Node JS, React JS.\n- SQL Impressionador — 89h+, 700+ aulas. SQL Server, MySQL, PostgreSQL,\nOracle + integração com Power BI e Excel.\n- VBA Impressionador — 80h+, 400+ aulas. Automatização de planilhas Excel.\n- HTML & CSS Impressionador — 72h+, 295+ aulas. Fundamentos + frameworks.\n- Inteligência Artificial Impressionador — 40h+, 170+ aulas. Principais IAs,\naplicações reais, configurações avançadas em IAs gratuitas e pagas.\n- PowerPoint Impressionador — 27h+, 100+ aulas. Ferramenta + técnicas de\napresentação.\n- Power Automate Impressionador — 14h+, 100+ aulas (em expansão). Automações\n+ integrações + projetos práticos.\n- n8n e Agentes de IA — Automações inteligentes e agentes de IA.\nSuporte a dúvidas: Dentro da própria plataforma das aulas, o aluno pode\nenviar todas as suas dúvidas referentes às ferramentas dos cursos, podendo\nanexar vídeos, arquivos, planilhas e tabelas. A equipe de experts responde\nde forma individual em até 24h úteis (de segunda a sexta). Além dos\nespecialistas humanos, o aluno também conta com o Hashbot, a IA da Hashtag,\npara tirar dúvidas.\nCertificado: Um por curso concluído.\nQuando o lead demonstrar interesse em uma ferramenta específica, destaque\no curso relevante com as informações detalhadas acima (horas, aulas, o que\nvai aprender). Não liste todos os cursos de uma vez — foque no que importa\npara ELE.\nSe o lead quiser ver o conteúdo programático detalhado de um curso, envie\no link das ementas: https://ementas.hashtagtreinamentos.com/\nPara inscrição, sempre direcione ao link oficial:\nhttps://www.hashtagtreinamentos.com/cursos-comunidade-impressionadora\n## FLUXO DE RESPOSTA\nIMPORTANTE: Este agente responde por E-MAIL. E-mail é assíncrono — cada\nresposta pode ser a última que o lead vai ler. Por isso, TODA resposta\ndeve ser completa e incluir o link de inscrição. Nunca dependa de uma\npróxima troca de mensagens para passar informação essencial.\nREGRAS DO CANAL E-MAIL:\n- SEMPRE inclua o link de inscrição em toda resposta, sem exceção\n- Nunca fique fazendo várias perguntas antes de apresentar o produto —\no lead pode não responder e ficar sem as informações\n- Responda a dúvida do lead de forma completa + apresente a Comunidade\n+ inclua o link, tudo na mesma resposta\n- Se quiser fazer uma pergunta para personalizar, faça UMA só, no final,\ndepois de já ter dado as informações e o link\nESTRUTURA DE CADA RESPOSTA:\n1. Responda diretamente o que o lead perguntou\n2. Conecte com a Comunidade Impressionadora e os cursos relevantes\n3. Destaque 1-2 diferenciais (suporte, garantia, credibilidade)\n4. Inclua o link de inscrição\n5. (Opcional) Uma pergunta curta no final para manter o diálogo\nREGRA DE OURO: O lead deve sair de qualquer resposta sua com todas as\ninformações que precisa para tomar a decisão — incluindo o link. Nunca\nesconda informação.\n## OBJEÇÕES COMUNS\n\"Está caro\" → Empatia + conta (15+ cursos, ~R$4/dia) + garantia 7 dias.\n\"Vou pensar\" → Não pressione. Pergunte se ficou dúvida. Se insistir,\nrespeite.\n\"Vi mais barato\" → Foque no diferencial (suporte, acesso total). Nunca cite\nconcorrente.\n\"Não sei se consigo\" → Ritmo próprio, 12 meses, suporte em 24h.\n\"Quero só 1 curso\" → Valide + mostre o valor de ter acesso a tudo.\n## GUARDRAILS\n- Escopo: Só fala sobre cursos, carreira em tech e ferramentas da Hashtag.\n- Concorrência: Nunca citar nomes. Nunca falar mal.\n- Desconto: Não pode oferecer além do preço oficial. Reforce valor +\ngarantia.\n- Dados sensíveis: Nunca pedir CPF, senha, cartão. Direcionar ao link\nseguro.\n- Lead agressivo: Calma e profissionalismo. Oferecer contato do suporte.\n- Não sabe a resposta: Direcionar ao suporte técnico. Nunca inventar.\n## FORMATO\n- HTML válido (<b>, <br>, <ul><li>)\n- Máximo 3-4 parágrafos curtos por resposta\n- Negritar: preço, garantia, nome do produto\n- Respostas conversacionais, não textões"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        416,
+        96
+      ],
+      "id": "eee2d77e-0169-4f1d-85e7-cd676654a766",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        416,
+        320
+      ],
+      "id": "2b6fef64-b2d5-4d91-9128-fa1f66761866",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "epThfAX9OBXV0mQy",
+          "name": "Google Gemini(PaLM) cleyton"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.threadId }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        512,
+        320
+      ],
+      "id": "6bf679a0-8513-4fd5-a68c-796f4da9b214",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('If').item.json.id }}",
+        "message": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        768,
+        96
+      ],
+      "id": "21e9960b-1712-4cac-96e9-f0d71d826d6a",
+      "name": "Reply to a message",
+      "webhookId": "d35fdc37-1217-4551-9ef3-b3d28f41789a",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "cWjBABGdXmz0dLF5",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Reply to a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "28247c9c-27ff-460d-b2af-6324abbb0e22",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fc028b19d2b8b71f39e12b8cb1f63bec68c5b0545f5994a2a294f3271e750273"
+  },
+  "nodeGroups": [],
+  "id": "xhnCwh9nXGCmxQC2",
+  "tags": []
+}
